@@ -1,0 +1,109 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color14">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="PagosForm.menu.active = !PagosForm.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Pagos {{PagosForm.paciente.PrimerNombre|| PagosForm.paciente.SegundoNombre || PagosForm.paciente.PrimerApellido || PagosForm.paciente.SegundoApellido ?'-':''}} {{PagosForm.paciente.PrimerNombre}} {{PagosForm.paciente.SegundoNombre}}
+            {{PagosForm.paciente.PrimerApellido}} {{PagosForm.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="PagosForm.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<md-progress-linear md-mode="indeterminate" ng-show="PagosForm.busy"></md-progress-linear>
+<md-content class="md-default-theme" ng-show="PagosForm.error">
+    <ui-view layout="column">
+        <div layout="row" layout-align="center center" class="ng-scope">
+            <div md-whiteframe="5" layout-margin flex-xs="100" flex-sm="100" flex-gt-sm="100" class="md-default-theme" md-colors="{background: 'grey-A100'}">
+                <div-content>
+                    No se han obtenido datos
+                </div-content>
+            </div>
+        </div>
+    </ui-view>
+</md-content>
+<md-content class="md-default-theme" ng-show="PagosForm.tratamiento !== null">
+    <div layout="row" layout-align="center center" class="ng-scope">
+        <div  layout-margin flex-xs="100" flex-sm="100" flex-gt-sm="50" class="md-default-theme" md-colors="{background: 'grey-A100'}">
+            <form name="formContainer" ng-submit="PagosForm.submitForm()" layout-margin layout-padding layout-wrap layout="row" enctype="multipart/form-data">
+                <md-table-container flex="100" >
+                    <table md-table md-row-select ng-model="PagosForm.selected">
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>Tratamiento</th>
+                                <th md-column md-numeric>Dientes</th>
+                                <th md-column md-numeric>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="item in PagosForm.pago.Tratamientos| orderBy: item.FechaCreacion | limitTo: limit: (PresupuestoCtrl.page - 1) * PresupuestoCtrl.limit">
+                                <td md-cell>{{item.IdTratamiento.Nombre}}</td>
+                                <td md-cell>
+                                    <span ng-repeat="(diente, value) in item.Dientes" ng-if="value"> {{diente}} </span>
+                                </td>
+                                <td md-cell>{{item.Valor}}</td>
+                            </tr>
+                            <tr  md-row>
+                                <td md-cell></td>
+                                <td md-cell></td>
+                                <td md-cell>Total: ${{PagosForm.pago.Valor?PagosForm.pago.Valor:0}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </form>
+            <md-button class="md-raised" ng-click="PagosForm.showAgregarTratamientoDialog()">Agregar tratamiento</md-button>
+        </div>
+    </div>
+</md-content>
+
+<script type="text/ng-template" id="agregarTratamientoDialog.html">
+    <md-dialog ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Tratamiento</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="ctrl.cancel()">
+                    <md-icon >close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content layout-padding layout-wrap layout="row" >
+            <md-input-container flex="100" >
+                <label>Tratamientos</label>
+                <md-select ng-model="ctrl.selectedTratamiento">
+                    <md-option ng-repeat="item in ctrl.options.presupuesto" ng-value="item">
+                        {{item.IdTratamiento.Nombre}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <fieldset class="standard" flex="100">
+            <legend>Dientes</legend>
+                <div layout="row" layout-wrap flex >
+                    <md-checkbox ng-if="value" ng-repeat="(key, value) in ctrl.selectedTratamiento.Dientes" ng-model="ctrl.Dientes[key]" ng-change="ctrl.calcularSubtotal()">
+                        {{key}}
+                    </md-checkbox>
+                </div>
+            </fieldset>
+            <md-input-container flex-xs="100" flex-sm="100" flex="100">
+                    <label>Abono</label>
+                    <input type="number" ng-model="ctrl.Valor" autocomplete="off">
+                </md-input-container>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button md-autofocus ng-click="ctrl.agregar()">
+                Agregar
+            </md-button>
+            <md-button >
+                Cancelar
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+</script>

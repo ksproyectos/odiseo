@@ -1,0 +1,224 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color18">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="PacienteCtrl.menu.active = !PacienteCtrl.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Paciente {{PacienteCtrl.paciente.PrimerNombre || PacienteCtrl.paciente.SegundoNombre || PacienteCtrl.paciente.PrimerApellido || PacienteCtrl.paciente.SegundoApellido ?'-':''}} {{PacienteCtrl.paciente.PrimerNombre}} {{PacienteCtrl.paciente.SegundoNombre}}
+            {{PacienteCtrl.paciente.PrimerApellido}} {{PacienteCtrl.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="PacienteCtrl.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<div layout="column" ng-cloak class="md-inline-form">
+    <md-content layout="column" layout-margin md-whiteframe="5">
+        <form name="PacienteCtrl.pacienteForm" layout-padding layout-wrap layout="row" md-colors="{background: 'grey-A100'}">
+            <md-input-container flex="25">
+                <label>Documento de Identidad</label>
+                <input type="text" name="DocumentoIdentidad" ng-model="PacienteCtrl.paciente.DocumentoIdentidad" required on-enter-pressed="PacienteCtrl.buscarPaciente()">
+                <div ng-messages="PacienteCtrl.pacienteForm.DocumentoIdentidad.$error" role="alert">
+                    <div ng-message="required">Por favor ingrese un valor para este campo.</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Tipo de Documento</label>
+                <md-select name="TipoDocumento" required ng-model="PacienteCtrl.paciente.TipoDocumento" ng-init="PacienteCtrl.documentosList = [{value: 'cédula', label: 'Cédula'},{value: 'tarjeta de identidad', label: 'Tarjeta de identidad'}, {value: 'cédula de extranjeria', label: 'Cédula de Extranjeria'}, {value: 'registro civil', label: 'Registro Civil'}]">
+                    <md-option ng-repeat="item in PacienteCtrl.documentosList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Primer Nombre</label>
+                <input type="text" name="" required ng-model="PacienteCtrl.paciente.PrimerNombre">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Segundo Nombre</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.SegundoNombre">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Primer Apellido</label>
+                <input type="text" required ng-model="PacienteCtrl.paciente.PrimerApellido">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Segundo Apellido</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.SegundoApellido">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Sexo</label>
+                <md-select required ng-model="PacienteCtrl.paciente.Sexo" ng-init="PacienteCtrl.sexoList = [{value: 'masculino', label: 'Masculino'}, {value: 'femenino', label: 'Femenino'}]">
+                    <md-option ng-repeat="item in PacienteCtrl.sexoList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Fecha de Nacimiento</label>
+                <input type="date" required ng-model="PacienteCtrl.paciente.FechaNacimiento">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Edad</label>
+                <input type="number" disabled ng-model="PacienteCtrl.paciente.Edad">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Estado Civil</label>
+                <md-select required ng-model="PacienteCtrl.paciente.EstadoCivil" ng-init="PacienteCtrl.estadoCivilList = [{value: 'casado', label: 'Casado'}, {value: 'soltero', label: 'Soltero'}, {value: 'divorciado', label: 'Divorciado'}, {value: 'union libre', label: 'Union Libre'}, {value: 'viudo', label: 'Viudo'}]">
+                    <md-option ng-repeat="item in PacienteCtrl.estadoCivilList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Ocupación</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.Ocupacion">
+            </md-input-container>
+            <!--<div flex="25">-->
+            <!--    <md-autocomplete required ng-input-name="IdEPS" md-selected-item="selectedItem['IdEPS']" md-search-text="searchText['IdEPS']" md-items="item in eventosForm.querySearchEPS(searchText['IdEPS'])" md-item-text="item.Nombre" placeholder="Buscar EPS" md-floating-label="EPS"-->
+            <!--        md-selected-item-change="PacienteCtrl.paciente.IdEPS = item.Id" force-select>-->
+            <!--        <md-item-template>-->
+            <!--            <span md-highlight-text="searchText['IdEPS']">Codigo:{{item.Id}} Nombre:{{item.Nombre}}</span>-->
+            <!--        </md-item-template>-->
+
+            <!--    </md-autocomplete>-->
+            <!--</div>-->
+            <md-input-container flex="25">
+                <label>EPS</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.EPS">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Tipo de Afiliación</label>
+                <md-select ng-model="PacienteCtrl.paciente.TipoAfiliacion" ng-init="PacienteCtrl.tipoAfiliacionList = [{value: 'beneficiario', label: 'Beneficiario'}, {value: 'cotizante', label: 'Cotizante'}]">
+                    <md-option ng-repeat="item in PacienteCtrl.tipoAfiliacionList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Departamento Residencia DANE</label>
+                <md-select ng-model="PacienteCtrl.paciente.DepartamentoRecidenciaDANE" ng-init="PacienteCtrl.departamentosDANEList = [{value: '05', label: 'Antioquia'}, {value: '01', label: 'Bogotá'}]">
+                    <md-option ng-repeat="item in PacienteCtrl.departamentosDANEList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="25">
+                <label>Ciudad Residencia DANE</label>
+                <md-select ng-model="PacienteCtrl.paciente.CiudadResidenciaDANE" ng-init="PacienteCtrl.ciudadResidenciaDANEList = [{value: '05', label: 'Medellin'}, {value: '01', label: 'Bello'}]">
+                    <md-option ng-repeat="item in PacienteCtrl.ciudadResidenciaDANEList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="25">
+                <label>Zona</label>
+                <md-select ng-model="PacienteCtrl.paciente.Zona" ng-init="PacienteCtrl.zonaList = [{value: 'U', label: 'Urbana'}, {value: 'R', label: 'Rural'}]">
+                    <md-option ng-repeat="item in PacienteCtrl.zonaList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="25">
+                <label>Ciudad otras</label>
+                <input type="text" required ng-model="PacienteCtrl.paciente.CiudadResidenciaOtra">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Barrio de Residencia</label>
+                <input type="text" required ng-model="PacienteCtrl.paciente.BarrioResidencia">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Dirección de Residencia</label>
+                <input type="text" required ng-model="PacienteCtrl.paciente.DireccionResidencia">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Teléfono</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.Telefono">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Celular</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.Celular">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Responsable</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.ResponsableNombre">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Parentesco del Responsable </label>
+                <md-select ng-model="PacienteCtrl.paciente.ResponsableParentesco" ng-init="PacienteCtrl.responsableParentescoList = [
+                {value: 'abuelo', label: 'Abuelo(a)'}, 
+                {value: 'cuñado', label: 'Cuñado(a)'}, 
+                {value: 'desconocido', label: 'Desconocido / Sin Especificar'}, 
+                {value: 'esposo', label: 'Esposo(a)'}, 
+                {value: 'familiar lejano', label: 'Familiar Lejano (3er. Grado)'}, 
+                {value: 'hermano', label: 'Hermano(a)'},
+                {value: 'hijo', label: 'Hijo(a)'},
+                {value: 'nieto', label: 'Nieto(a)'},
+                {value: 'ninguno', label: 'Ninguno'},
+                {value: 'nuera', label: 'Nuera/yerno'},
+                {value: 'papa', label: 'Papa/mama'},
+                {value: 'primo', label: 'Primo(a)'},
+                {value: 'sobrino', label: 'Sobrino(a)'},
+                {value: 'suegro', label: 'Suegro(a)'},
+                {value: 'tio', label: 'Tio(a)'},
+                {value: 'vecino', label: 'Vecino(a) / Conocido(a) / Amigo(a)'}]">
+                    <md-option ng-repeat="item in PacienteCtrl.responsableParentescoList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Teléfono del responsable</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.ResponsableTelefono">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Acompañante</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.AcompananteNombre">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Parentesco del acompañante </label>
+                <md-select ng-model="PacienteCtrl.paciente.AcompananteParentesco" ng-init="PacienteCtrl.acompananteParentescoList = [
+                {value: 'abuelo', label: 'Abuelo(a)'}, 
+                {value: 'cuñado', label: 'Cuñado(a)'}, 
+                {value: 'desconocido', label: 'Desconocido / Sin Especificar'}, 
+                {value: 'esposo', label: 'Esposo(a)'}, 
+                {value: 'familiar lejano', label: 'Familiar Lejano (3er. Grado)'}, 
+                {value: 'hermano', label: 'Hermano(a)'},
+                {value: 'hijo', label: 'Hijo(a)'},
+                {value: 'nieto', label: 'Nieto(a)'},
+                {value: 'ninguno', label: 'Ninguno'},
+                {value: 'nuera', label: 'Nuera/yerno'},
+                {value: 'papa', label: 'Papa/mama'},
+                {value: 'primo', label: 'Primo(a)'},
+                {value: 'sobrino', label: 'Sobrino(a)'},
+                {value: 'suegro', label: 'Suegro(a)'},
+                {value: 'tio', label: 'Tio(a)'},
+                {value: 'vecino', label: 'Vecino(a) / Conocido(a) / Amigo(a)'}]">
+                    <md-option ng-repeat="item in PacienteCtrl.acompananteParentescoList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Teléfono del acompañante</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.AcompananteTelefono">
+            </md-input-container>
+        </form>
+    </md-content>
+</div>
+<div class="overlay ng-hide" layout="row" layout-align="center center" ng-show="PacienteCtrl.busy" style="
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 10000;
+    background-color: rgba(255,255,255, 0.8);">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>

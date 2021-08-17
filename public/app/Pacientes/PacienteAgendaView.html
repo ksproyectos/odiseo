@@ -1,0 +1,54 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2 class="md-title">Paciente {{PacienteCtrl.paciente.PrimerNombre || PacienteCtrl.paciente.SegundoNombre || PacienteCtrl.paciente.PrimerApellido || PacienteCtrl.paciente.SegundoApellido ?'-':''}} {{PacienteCtrl.paciente.PrimerNombre}} {{PacienteCtrl.paciente.SegundoNombre}}
+            {{PacienteCtrl.paciente.PrimerApellido}} {{PacienteCtrl.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="PacienteCtrl.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<div layout="column" ng-cloak class="md-inline-form">
+    <md-content layout="column" layout-margin md-whiteframe="5">
+        <form name="PacienteCtrl.pacienteForm" layout-padding layout-wrap layout="row" md-colors="{background: 'grey-A100'}">
+            <md-input-container flex="25">
+                <label>Documento de Identidad</label>
+                <input type="text" name="DocumentoIdentidad" ng-model="PacienteCtrl.paciente.DocumentoIdentidad" required on-enter-pressed="PacienteCtrl.buscarPaciente()">
+                <div ng-messages="PacienteCtrl.pacienteForm.DocumentoIdentidad.$error" role="alert">
+                    <div ng-message="required">Por favor ingrese un valor para este campo.</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Primer Nombre</label>
+                <input type="text" name="" required ng-model="PacienteCtrl.paciente.PrimerNombre">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Segundo Nombre</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.SegundoNombre">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Primer Apellido</label>
+                <input type="text" required ng-model="PacienteCtrl.paciente.PrimerApellido">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Segundo Apellido</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.SegundoApellido">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Teléfono</label>
+                <input type="text" ng-model="PacienteCtrl.paciente.Telefono">
+            </md-input-container>
+        </form>
+    </md-content>
+</div>
+<div class="overlay ng-hide" layout="row" layout-align="center center" ng-show="PacienteCtrl.busy" style="
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 10000;
+    background-color: rgba(255,255,255, 0.8);">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>

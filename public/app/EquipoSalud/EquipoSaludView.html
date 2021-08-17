@@ -1,0 +1,70 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color14">
+         <md-button class="md-icon-button" aria-label="Menu" ng-click="EquipoSaludCtrl.menu.active = !EquipoSaludCtrl.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Equipo de salud {{EquipoSaludCtrl.paciente.PrimerNombre || EquipoSaludCtrl.paciente.SegundoNombre || EquipoSaludCtrl.paciente.PrimerApellido || EquipoSaludCtrl.paciente.SegundoApellido ?'-':''}} {{EquipoSaludCtrl.paciente.PrimerNombre}} {{EquipoSaludCtrl.paciente.SegundoNombre}}
+            {{EquipoSaludCtrl.paciente.PrimerApellido}} {{EquipoSaludCtrl.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="EquipoSaludCtrl.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<md-progress-linear md-mode="indeterminate" ng-hide="EquipoSaludCtrl.items !== null || EquipoSaludCtrl.error"></md-progress-linear>
+<md-content class="md-default-theme" ng-show="EquipoSaludCtrl.items.length === 0 || EquipoSaludCtrl.error">
+        <div layout="row" layout-align="center center" class="ng-scope">
+            <div md-whiteframe="5" layout-margin flex-xs="100" flex-sm="100" flex-gt-sm="90" class="md-default-theme" md-colors="{background: 'grey-A100'}">
+                <div-content ng-show="EquipoSaludCtrl.error">
+                    Error: No se han obtenido datos
+                </div-content>
+                <div-content ng-show="EquipoSaludCtrl.items.length === 0">
+                    No hay datos guardados
+                </div-content>
+            </div>
+        </div>
+</md-content>
+<md-content class="md-default-theme" ng-show="EquipoSaludCtrl.items !== null && EquipoSaludCtrl.items.length !== 0 && !EquipoSaludCtrl.error">
+        <div layout="row" layout-align="center center" class="ng-scope">
+            <div md-whiteframe="5" layout-margin flex-xs="100" flex-sm="100" flex-gt-sm="50" class="md-default-theme" md-colors="{background: 'grey-A100'}"> 
+                <div-content>
+                    <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column>Numero de identificacion</th>
+                                    <th md-column>Tipo identificacion</th>
+                                    <th md-column>Nombre completo</th>
+                                    <th md-column md-numeric>
+                            <md-button class="md-icon-button" aria-label="Editar">
+                                <i class="material-icons">settings</i>
+                            </md-button>
+                            </th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="item in EquipoSaludCtrl.items| orderBy: item.categoria | limitTo: limit: (page - 1) * limit">
+                                    <td md-cell>{{item.NoIdentificacion}}</td>
+                                    <td md-cell>{{item.TipoIdentificacion}}</td>
+                                    <td md-cell>{{item.NombreCompleto}}</td>
+                                    <td md-cell md-numeric>
+                            <md-button class="md-icon-button" aria-label="Editar" ng-click="EquipoSaludCtrl.edit(item._id)">
+                                <md-tooltip md-direction="left">
+                                    Editar {{item.Nombre}}
+                                </md-tooltip>
+                                <md-icon class="material-icons">mode_edit</md-icon>
+                            </md-button>
+                            </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-table-pagination md-limit="limit" md-page="page" md-total="{{EquipoSaludCtrl.items.length}}"></md-table-pagination>
+                </div-content>
+            </div>
+        </div>
+</md-content>

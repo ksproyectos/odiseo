@@ -1,0 +1,49 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color7">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="AgendaCtrl.menu.active = !AgendaCtrl.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Agenda {{AgendaCtrl.paciente.PrimerNombre || AgendaCtrl.paciente.SegundoNombre || AgendaCtrl.paciente.PrimerApellido || AgendaCtrl.paciente.SegundoApellido ?'-':''}} {{AgendaCtrl.paciente.PrimerNombre}} {{AgendaCtrl.paciente.SegundoNombre}}
+            {{AgendaCtrl.paciente.PrimerApellido}} {{AgendaCtrl.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="AgendaCtrl.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<md-button class="md-raised" ng-click="AgendaCtrl.openNewAgenda()">
+            Nuevo paciente para agenda
+        </md-button>
+<div id="scheduler" class="dhx_cal_container" style='width: 100%; height:100%;'>
+    <div class="dhx_cal_navline">
+        <div class="dhx_cal_prev_button">&nbsp;</div>
+        <div class="dhx_cal_next_button">&nbsp;</div>
+        <div class="dhx_cal_today_button"></div>
+        <div class="dhx_cal_date"></div>
+        <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+        <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+        <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+        <div class="dhx_cal_tab" name="agenda_tab" style="right:280px;"></div>
+    </div>
+    <div class="dhx_cal_header"></div>
+    <div class="dhx_cal_data"></div>       
+</div>
+<div layout="column" ng-cloak class="md-inline-form">
+    <md-content layout="column" layout-margin  md-whiteframe="5">
+
+    </md-content>
+</div>
+<div class="overlay ng-hide" layout="row" layout-align="center center" ng-show="AgendaCtrl.busy" style="
+     width: 100%;
+     height: 100%;
+     top: 0;
+     left: 0;
+     position: fixed;
+     z-index: 10000;
+     background-color: rgba(255,255,255, 0.8);">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>

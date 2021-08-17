@@ -1,0 +1,63 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color18">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="EvolucionCtrl.menu.active = !EvolucionCtrl.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Evolución {{EvolucionCtrl.paciente.PrimerNombre || EvolucionCtrl.paciente.SegundoNombre || EvolucionCtrl.paciente.PrimerApellido || EvolucionCtrl.paciente.SegundoApellido ?'-':''}} {{EvolucionCtrl.paciente.PrimerNombre}} {{EvolucionCtrl.paciente.SegundoNombre}} {{EvolucionCtrl.paciente.PrimerApellido}} {{EvolucionCtrl.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        Autor: &nbsp;
+        <md-input-container>
+            <md-select ng-model="EvolucionCtrl.autores.selectedProfesional" placeholder="Seleccione Autor">
+                <md-option ng-value="autor" ng-repeat="autor in EvolucionCtrl.autores.profesionales">{{ autor.NombreCompleto}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-button class="md-raised" ng-click="EvolucionCtrl.openNewTab()">
+          Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<div layout="row"  ng-cloak class="md-inline-form" layout-align="center center">
+    <md-content layout="column" layout-margin md-whiteframe="5" flex="80" md-colors="{background: 'grey-A100'}" >
+       <md-table-container >
+            <table md-table>
+                <thead md-head>
+                    <tr md-row>
+                        <th md-column>Fecha</th>
+                        <th md-column>Evolucion</th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="item in EvolucionCtrl.evolucion | orderBy: item.FechaCreacion | limitTo: limit: (EvolucionCtrl.page - 1) * EvolucionCtrl.limit">
+                        <td md-cell>{{item.FechaCreacion | date:'MM/dd/yyyy h:mma'}}</td>
+                        <td md-cell>{{item.Evolucion}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="EvolucionCtrl.limit" md-page="EvolucionCtrl.page" md-total="{{EvolucionCtrl.evolucion.length}}"></md-table-pagination>
+    </md-content>
+</div>
+<div layout="row"  ng-cloak class="md-inline-form" layout-align="center center">
+    <md-content layout="row" layout-margin md-whiteframe="5" flex="80" >
+        <form name="EvolucionCtrl.evolucionForm" layout-padding layout-wrap layout="row" md-colors="{background: 'grey-A100'}" flex="100">
+            <md-input-container flex="100">
+                <label>Evolucion</label>
+                <textarea required msd-elastic ng-model="EvolucionCtrl.row.Evolucion"></textarea>
+            </md-input-container>
+        </form>
+    </md-content>
+</div>
+<div class="overlay ng-hide" layout="row" layout-align="center center" ng-show="EvolucionCtrl.busy" style="
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 10000;
+    background-color: rgba(255,255,255, 0.8);">
+     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>

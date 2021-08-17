@@ -1,0 +1,152 @@
+<div menu></div>
+<md-toolbar >
+    <div class="md-toolbar-tools color18">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="OdontogramaCtrl.menu.active = !OdontogramaCtrl.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Odontograma {{OdontogramaCtrl.paciente.PrimerNombre|| OdontogramaCtrl.paciente.SegundoNombre || OdontogramaCtrl.paciente.PrimerApellido || OdontogramaCtrl.paciente.SegundoApellido ?'-':''}} {{OdontogramaCtrl.paciente.PrimerNombre}} {{OdontogramaCtrl.paciente.SegundoNombre}} {{OdontogramaCtrl.paciente.PrimerApellido}} {{OdontogramaCtrl.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        Autor: &nbsp;
+        <md-input-container>
+            <md-select ng-model="OdontogramaCtrl.autores.selectedProfesional" placeholder="Seleccione Autor">
+                <md-option ng-value="autor" ng-repeat="autor in OdontogramaCtrl.autores.profesionales">{{ autor.NombreCompleto}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-button class="md-raised" ng-click="OdontogramaCtrl.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+
+</md-toolbar>
+<div  layout="row" layout-align="center center">
+    {{OdontogramaCtrl.odontograma.FechaCreacion| date:'dd/MM/yyyy @ h:mma'}}
+    <div odontograma active-action="OdontogramaCtrl.activeAction" on-apply-action="OdontogramaCtrl.onApplyAction(diente, zona)" odontograma-data="OdontogramaCtrl.odontograma" on-data-updated="OdontogramaCtrl.onDataUpdated" commands="OdontogramaCtrl.commands"></div>
+</div>
+<style type="text/css">
+    .menu_actions {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+
+
+    .menu_actions .action {
+        float: left;
+        height: 150px;
+        width: 150px;
+        background-color: #ccc;
+        margin: 5px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .menu_actions .active{
+        background-color: #fff;
+    }
+
+    .menu_actions .text {
+        float: left;
+        margin-top: 10px;
+        margin-left: 10px;
+        font-size: 20px;
+    }
+    .menu_actions .icon{
+        position: absolute;
+        top: 90px;
+        left: 50px;
+    }
+</style>
+<div class="menu_actions">
+    <div class="action" ng-click="OdontogramaCtrl.setAction('fractura')" ng-class="{active: (OdontogramaCtrl.activeAction == 'fractura') }">
+        <div class="text">Fractura</div>
+        <div class="icon"><img src="images/odontograma/fractura.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('caries')" ng-class="{active: (OdontogramaCtrl.activeAction == 'caries') }">
+        <div class="text">Caries</div>
+        <div class="icon"><img src="images/odontograma/caries.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('amalgama_adaptada')"  ng-class="{active: (OdontogramaCtrl.activeAction == 'amalgama_adaptada') }">
+        <div class="text">Amalgama adaptada</div>
+        <div class="icon"><img src="images/odontograma/amalgama_adaptada.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('amalgama_desadaptada')" ng-class="{active: (OdontogramaCtrl.activeAction == 'amalgama_desadaptada') }">
+        <div class="text">Amalgama desadaptada</div>
+        <div class="icon"><img src="images/odontograma/amalgama_desadaptada.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('diente_erupcion')" ng-class="{active: (OdontogramaCtrl.activeAction == 'diente_erupcion') }">
+        <div class="text">Diente en erupcion</div>
+        <div class="icon"><img src="images/odontograma/diente_en_erupcion.png"></div>
+    </div>
+
+    <div class="action" ng-click="OdontogramaCtrl.setAction('resina_adaptada')" ng-class="{active: (OdontogramaCtrl.activeAction == 'resina_adaptada') }">
+        <div class="text">Resina adaptada</div>
+        <div class="icon"><img src="images/odontograma/resina_adaptada.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('resina_desadaptada')" ng-class="{active: (OdontogramaCtrl.activeAction == 'resina_desadaptada') }">
+        <div class="text">Resina desadaptada</div>
+        <div class="icon"><img src="images/odontograma/resina_desadaptada.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('sellante')" ng-class="{active: (OdontogramaCtrl.activeAction == 'sellante') }">
+        <div class="text">Sellante</div>
+        <div class="icon"><img src="images/odontograma/sellante.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('sellante_indicado')" ng-class="{active: (OdontogramaCtrl.activeAction == 'sellante_indicado') }">
+        <div class="text">Sellante indicado</div>
+        <div class="icon"><img src="images/odontograma/sellante_indicado.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('ausente')" ng-class="{active: (OdontogramaCtrl.activeAction == 'ausente') }">
+        <div class="text">Ausente</div>
+        <div class="icon"><img src="images/odontograma/ausente.png"></div>
+    </div>
+    <div class="action"  ng-click="OdontogramaCtrl.setAction('corona')" ng-class="{active: (OdontogramaCtrl.activeAction == 'corona') }">
+        <div class="text">Corona</div>
+        <div class="icon"><img src="images/odontograma/corona_adaptada.png"></div>
+    </div>
+    <div class="action"  ng-click="OdontogramaCtrl.setAction('corona_desadaptada')" ng-class="{active: (OdontogramaCtrl.activeAction == 'corona_desadaptada') }">
+        <div class="text">Corona desadaptada</div>
+        <div class="icon"><img src="images/odontograma/corona_desadaptada.png"></div>
+    </div>
+
+    <div class="action" ng-click="OdontogramaCtrl.setAction('provisional_adaptado')" ng-class="{active: (OdontogramaCtrl.activeAction == 'provisional_adaptado') }">
+        <div class="text">Provisional adaptado</div>
+        <div class="icon"><img src="images/odontograma/provisional_adaptado.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('provisional_desadaptado')" ng-class="{active: (OdontogramaCtrl.activeAction == 'provisional_desadaptado') }">
+        <div class="text">Provisional desadaptado</div>
+        <div class="icon"><img src="images/odontograma/provisional_desadaptado.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('sano')" ng-class="{active: (OdontogramaCtrl.activeAction == 'sano') }">
+        <div class="text">Chequeado</div>
+        <div class="icon"><img src="images/odontograma/sano.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('endodoncia_indicada')" ng-class="{active: (OdontogramaCtrl.activeAction == 'endodoncia_indicada') }">
+        <div class="text">Endodoncia Indicada</div>
+        <div class="icon"><img src="images/odontograma/endodoncia_indicada.png"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('exodoncia_indicada')" ng-class="{active: (OdontogramaCtrl.activeAction == 'exodoncia_indicada') }">
+        <div class="text">Exodoncia Indicada</div>
+        <div class="icon"><img src="images/odontograma/exodoncia_indicada.png"></div>
+    </div>
+    <div class="action">
+        <div class="text"></div>
+        <div class="icon"></div>
+    </div>
+    <div class="action" ng-click="OdontogramaCtrl.setAction('borrar')" ng-class="{active: (OdontogramaCtrl.activeAction == 'borrar') }">
+        <div class="text">Borrar</div>
+        <div class="icon"></div>
+    </div>
+</div>
+<div class="overlay ng-hide" layout="row" layout-align="center center" ng-show="OdontogramaCtrl.busy" style="
+     width: 100%;
+     height: 100%;
+     top: 0;
+     left: 0;
+     position: fixed;
+     z-index: 10000;
+     background-color: rgba(255,255,255, 0.8);">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+
+  

@@ -1,0 +1,116 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color14">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="PagosCtrl.menu.active = !PagosCtrl.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Pagos {{PagosCtrl.paciente.PrimerNombre|| PagosCtrl.paciente.SegundoNombre || PagosCtrl.paciente.PrimerApellido || PagosCtrl.paciente.SegundoApellido ?'-':''}} {{PagosCtrl.paciente.PrimerNombre}} {{PagosCtrl.paciente.SegundoNombre}}
+            {{PagosCtrl.paciente.PrimerApellido}} {{PagosCtrl.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="PagosCtrl.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<md-progress-linear md-mode="indeterminate" ng-hide="PagosCtrl.items !== null || PagosCtrl.error"></md-progress-linear>
+<md-content class="md-default-theme" ng-show="PagosCtrl.items.length === 0 || PagosCtrl.error">
+    <ui-view layout="column">
+        <div layout="row" layout-align="center center" class="ng-scope">
+            <div md-whiteframe="5" layout-margin flex-xs="100" flex-sm="100" flex-gt-sm="90" class="md-default-theme" md-colors="{background: 'grey-A100'}">
+                <div-content ng-show="PagosCtrl.error">
+                    Error: No se han obtenido datos
+                </div-content>
+                <div-content ng-show="PagosCtrl.items.length === 0">
+                    No hay datos guardados
+                </div-content>
+            </div>
+        </div>
+    </ui-view>
+</md-content>
+<md-content class="md-default-theme" ng-show="PagosCtrl.items !== null && PagosCtrl.items.length !== 0 && !PagosCtrl.error">
+    <div layout="row" layout-align="center center" class="ng-scope">
+        <div md-whiteframe="5" layout-margin flex-xs="100" flex-sm="100" flex-gt-sm="50" class="md-default-theme" md-colors="{background: 'grey-A100'}"> 
+            <div-content>
+                <md-table-container>
+                    <table md-table md-table md-row-select multiple ng-model="PagosCtrl.selected">
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>Fecha</th>
+                                <th md-column>Tratamientos</th>
+                                <th md-column>Valor</th>
+                                <th md-column md-numeric>
+                        <md-button class="md-icon-button" aria-label="Editar">
+                            <i class="material-icons">settings</i>
+                        </md-button>
+                        </th>
+                        </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in PagosCtrl.items| orderBy: item.categoria | limitTo: limit: (page - 1) * limit">
+                                <td md-cell>{{item.FechaCreacion| date:'MM/dd/yyyy h:mma'}}</td>
+                                <td md-cell><div ng-repeat="tratamiento in item.Tratamientos">{{tratamiento.IdTratamiento.Nombre}} [<span ng-repeat="(key, value) in tratamiento.Dientes">{{key}} </span>]</div></td>
+                                <td md-cell>{{item.Valor}}</td>
+                                <td md-cell md-numeric>
+                        <md-button class="md-icon-button" aria-label="Editar" ng-click="PagosCtrl.print(item._id)">
+                            <md-tooltip md-direction="left">
+                                Imprimir
+                            </md-tooltip>
+                            <md-icon class="material-icons">print</md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Editar" ng-click="PagosCtrl.edit(item._id)">
+                            <md-tooltip md-direction="left">
+                                Editar
+                            </md-tooltip>
+                            <md-icon class="material-icons">mode_edit</md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Editar" ng-click="PagosCtrl.delete(item._id)">
+                            <md-tooltip md-direction="left">
+                                Eliminar
+                            </md-tooltip>
+                            <md-icon class="material-icons">delete</md-icon>
+                        </md-button>
+                        </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <md-table-pagination md-limit="PagosCtrl.limit" md-page="PagosCtrl.page" md-total="{{PagosCtrl.items.length}}"></md-table-pagination>
+            </div-content>
+        </div>
+    </div>
+</md-content>
+
+<style>
+    .box{
+        float: left;
+        position: relative;
+        width: 260px;
+        height: 150px;
+    }
+    .box__text{
+        position: absolute;
+        display: inline-block;
+        bottom: 0px;
+        right: 0px;
+        margin: 10px;
+
+        font-size: 24px;
+        text-align: right;
+        color: #eee;
+    }
+</style>
+<div class="overlay ng-hide" layout="row" layout-align="center center" ng-show="PagosCtrl.busy" style="
+     width: 100%;
+     height: 100%;
+     top: 0;
+     left: 0;
+     position: fixed;
+     z-index: 10000;
+     background-color: rgba(255,255,255, 0.8);">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+
+

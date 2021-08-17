@@ -1,0 +1,52 @@
+md-input-container.md-default-theme .md-input[disabled], md-input-container .md-input[disabled], [disabled] md-input-container.md-default-theme .md-input, [disabled] md-input-container .md-input{
+  color: #000;
+}
+md-select.md-default-theme[disabled] ._md-select-value, md-select[disabled] ._md-select-value {
+  color: #000;
+}
+
+.diente {
+    position: relative;
+    width: 70px;
+    height: 80px;
+}
+
+zona-1 {
+    position: absolute;
+}
+
+.zona-1 {
+    position:  absolute;
+    top: 0;
+    left: 22px;
+}
+
+.zona-2 {
+    top: 22px;
+    left: 0px;
+    position: absolute;
+}
+
+.zona-3 {
+    position:  absolute;
+    top: 44px;
+    left: 22px;
+}
+
+.zona-4 {
+    position:  absolute;
+    left: 44px;
+    top: 22px;
+}
+
+.zona-5 {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+}
+
+.info{
+    position: absolute;
+    top: 66px;
+    left: 22px;
+}

@@ -1,0 +1,46 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color14">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="EquipoSaludForm.menu.active = !EquipoSaludForm.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Equipo de salud {{EquipoSaludForm.paciente.PrimerNombre || EquipoSaludForm.paciente.SegundoNombre || EquipoSaludForm.paciente.PrimerApellido || EquipoSaludForm.paciente.SegundoApellido ?'-':''}} {{EquipoSaludForm.paciente.PrimerNombre}} {{EquipoSaludForm.paciente.SegundoNombre}}
+            {{EquipoSaludForm.paciente.PrimerApellido}} {{EquipoSaludForm.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="EquipoSaludForm.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<md-progress-linear md-mode="indeterminate" ng-show="EquipoSaludForm.busy"></md-progress-linear>
+<md-content class="md-default-theme" ng-show="EquipoSaludForm.profesional !== null" style="height: 80%">
+    <div layout="row" layout-align="center start" class="ng-scope" style="height: 100%">
+            <div md-whiteframe="5" layout-margin flex-xs="100" flex-sm="100" flex-gt-sm="50" class="md-default-theme" md-colors="{background: 'grey-A100'}">
+                    <form name="formContainer" ng-submit="EquipoSaludForm.submitForm()" layout-wrap layout="row" enctype="multipart/form-data">
+                        <md-input-container flex-xs="100" flex-sm="100" flex="50">
+                            <label>Numero de identificacion</label>
+                            <input type="text" name="NoIdentificacion" ng-model="EquipoSaludForm.profesional.NoIdentificacion" required on-enter-pressed="EquipoSaludForm.buscarPaciente()">
+                            <div ng-messages="EquipoSaludForm.pacienteForm.DocumentoIdentidad.$error" role="alert">
+                                <div ng-message="required">Por favor ingrese un valor para este campo.</div>
+                            </div>
+                        </md-input-container >
+                        <md-input-container flex-xs="100" flex-sm="100" flex="50">
+                            <label>Tipo de Identificacion</label>
+                            <md-select name="TipoIdentificacion" required ng-model="EquipoSaludForm.profesional.TipoIdentificacion" ng-init="EquipoSaludForm.documentosList = [{value: 'cédula', label: 'Cédula'}, {value: 'registro profecional', label: 'Registro Profesional'}, {value: 'tarjeta de identidad', label: 'Tarjeta de identidad'}, {value: 'cédula de extranjeria', label: 'Cédula de Extranjeria'}, {value: 'registro civil', label: 'Registro Civil'}]">
+                                <md-option ng-repeat="item in EquipoSaludForm.documentosList" ng-value="item.value">
+                                    {{item.label}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex-xs="100" flex-sm="100" flex="40">
+                            <label>Ingrese Nombre Completo</label>
+                            <input required md-no-asterisk ng-model="EquipoSaludForm.profesional.NombreCompleto" autocomplete="off">
+                        </md-input-container>
+                    </form>
+            </div>
+        </div>
+</md-content>
+

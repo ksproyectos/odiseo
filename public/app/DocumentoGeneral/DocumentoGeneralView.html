@@ -1,0 +1,166 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color18">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="DocumentoGeneralCtrl.menu.active = !DocumentoGeneralCtrl.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Documento informacion clinica general {{DocumentoGeneralCtrl.paciente.PrimerNombre|| DocumentoGeneralCtrl.paciente.SegundoNombre || DocumentoGeneralCtrl.paciente.PrimerApellido || DocumentoGeneralCtrl.paciente.SegundoApellido ?'-':''}} {{DocumentoGeneralCtrl.paciente.PrimerNombre}} {{DocumentoGeneralCtrl.paciente.SegundoNombre}} {{DocumentoGeneralCtrl.paciente.PrimerApellido}} {{DocumentoGeneralCtrl.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        Autor: &nbsp;
+        <md-input-container>
+            <md-select ng-model="DocumentoGeneralCtrl.autores.selectedProfesional" placeholder="Seleccione Autor">
+                <md-option ng-value="autor" ng-repeat="autor in DocumentoGeneralCtrl.autores.profesionales">{{ autor.NombreCompleto}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-button class="md-raised" ng-click="DocumentoGeneralCtrl.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<div layout="column" ng-cloak class="md-inline-form">
+    <md-content layout="column" layout-margin  md-whiteframe="5">
+        <form name="DocumentoGeneralCtrl.documentoGeneralForm" layout-padding layout-wrap layout="row" md-colors="{background: 'grey-A100'}">
+            <md-input-container flex="25" >
+                <label>Fecha de creación</label>
+                <input type="date" disabled ng-model="DocumentoGeneralCtrl.documentoGeneral.FechaCreacion">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Motivo de consulta</label>
+                <input type="text" required ng-model="DocumentoGeneralCtrl.documentoGeneral.MotivoConsulta" ng-disabled="DocumentoGeneralCtrl.isSaved">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Enfermedad Actual</label>
+                <input type="text" required ng-model="DocumentoGeneralCtrl.documentoGeneral.EnfermedadActual" ng-disabled="DocumentoGeneralCtrl.isSaved">
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Medicación Actual</label>
+                <input type="text" required ng-model="DocumentoGeneralCtrl.documentoGeneral.MedicamentosActuales" ng-disabled="DocumentoGeneralCtrl.isSaved">
+            </md-input-container>
+            <div flex="100">Antecedentes Medicos</div>
+            <md-input-container flex="25">
+                <label>Fiebre reumática</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.FiebreReumatica" ng-init="DocumentoGeneralCtrl.fiebreReumaticaList = [{value: 'no', label: 'No'}, {value: 'si', label: 'Si'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.fiebreReumaticaList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Hemorragias</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.Hemorragias" ng-init="DocumentoGeneralCtrl.hemorragiasList = [{value: 'no', label: 'No'}, {value: 'si', label: 'Si'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.hemorragiasList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Cardiopatias</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.Cardiopatias" ng-init="DocumentoGeneralCtrl.cardiopatiasList = [{value: 'no', label: 'No'}, {value: 'si', label: 'Si'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.cardiopatiasList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Hepatitis</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.Hepatitis" ng-init="DocumentoGeneralCtrl.hepatitisList = [{value: 'no', label: 'No'}, {value: 'si', label: 'Si'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.hepatitisList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Diabetes</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.Diabetes" ng-init="DocumentoGeneralCtrl.diabetesList = [{value: 'no', label: 'No'}, {value: 'si', label: 'Si'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.diabetesList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Alergias</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.Alergias" ng-init="DocumentoGeneralCtrl.alergiasList = [{value: 'no', label: 'No'}, {value: 'si', label: 'Si'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.alergiasList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="25">
+                <label>Tensión Arterial</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.TensionArterial" ng-init="DocumentoGeneralCtrl.tensionArterialList = [{value: 'normal', label: 'Normal'}, {value: 'anormal', label: 'Anormal'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.tensionArterialList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Piso de Boca</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.PisoDeBoca" ng-init="DocumentoGeneralCtrl.pisoDeBocaList = [{value: 'normal', label: 'Normal'}, {value: 'anormal', label: 'Anormal'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.pisoDeBocaList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Carrillos</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.Carrillos" ng-init="DocumentoGeneralCtrl.carrillosList = [{value: 'normal', label: 'Normal'}, {value: 'anormal', label: 'Anormal'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.carrillosList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Paladar</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.Paladar" ng-init="DocumentoGeneralCtrl.paladarList = [{value: 'normal', label: 'Normal'}, {value: 'anormal', label: 'Anormal'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.paladarList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Lengua</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.Lengua" ng-init="DocumentoGeneralCtrl.lenguaList = [{value: 'normal', label: 'Normal'}, {value: 'anormal', label: 'Anormal'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.lenguaList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Labios</label>
+                <md-select required ng-model="DocumentoGeneralCtrl.documentoGeneral.Labios" ng-init="DocumentoGeneralCtrl.labiosList = [{value: 'normal', label: 'Normal'}, {value: 'anormal', label: 'Anormal'}]" ng-disabled="DocumentoGeneralCtrl.isSaved">
+                    <md-option ng-repeat="item in DocumentoGeneralCtrl.labiosList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="100">
+                <label>Otros Antecedentes</label>
+                <input type="text" ng-model="DocumentoGeneralCtrl.documentoGeneral.OtrosAntecedentes" ng-disabled="DocumentoGeneralCtrl.isSaved">
+            </md-input-container>
+            <md-input-container flex="100">
+                <label>Observaciones</label>
+                <textarea required msd-elastic ng-model="DocumentoGeneralCtrl.documentoGeneral.ObservacionesAntecedentesMedicos" ng-disabled="DocumentoGeneralCtrl.isSaved"></textarea>
+            </md-input-container>
+            
+            <md-input-container flex="100">
+                <label>Antecedentes Familiares</label>
+                <input type="text" ng-model="DocumentoGeneralCtrl.documentoGeneral.AntecedentesFamiliares" ng-disabled="DocumentoGeneralCtrl.isSaved">
+            </md-input-container>
+            
+        </form>
+    </md-content>
+</div>
+<div class="overlay ng-hide" layout="row" layout-align="center center" ng-show="DocumentoGeneralCtrl.busy" style="
+     width: 100%;
+     height: 100%;
+     top: 0;
+     left: 0;
+     position: fixed;
+     z-index: 10000;
+     background-color: rgba(255,255,255, 0.8);">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>

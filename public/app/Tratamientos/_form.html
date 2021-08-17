@@ -1,0 +1,38 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color14">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="TratamientosForm.menu.active = !TratamientosForm.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Tratamientos {{TratamientosForm.paciente.PrimerNombre || TratamientosForm.paciente.SegundoNombre || TratamientosForm.paciente.PrimerApellido || TratamientosForm.paciente.SegundoApellido ?'-':''}} {{TratamientosForm.paciente.PrimerNombre}} {{TratamientosForm.paciente.SegundoNombre}}
+            {{TratamientosForm.paciente.PrimerApellido}} {{TratamientosForm.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="TratamientosForm.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<md-progress-linear md-mode="indeterminate" ng-show="TratamientosForm.busy"></md-progress-linear>
+<md-content class="md-default-theme" ng-show="TratamientosForm.tratamiento !== null">
+        <div layout="row" layout-align="center center" class="ng-scope">
+            <div md-whiteframe="5" layout-margin flex-xs="100" flex-sm="100" flex-gt-sm="50" class="md-default-theme" md-colors="{background: 'grey-A100'}">
+                    <form name="formContainer" ng-submit="TratamientosForm.submitForm()"  layout-wrap layout="row" enctype="multipart/form-data">
+                        <md-input-container flex-xs="100" flex-sm="100" flex="50">
+                            <label>Nombre del tratamiento</label>
+                            <input type="text" name="Nombre" ng-model="TratamientosForm.tratamiento.Nombre" required on-enter-pressed="TratamientosForm.buscarPaciente()">
+                            <div ng-messages="TratamientosForm.formContainer.Nombre.$error" role="alert">
+                                <div ng-message="required">Por favor ingrese un valor para este campo.</div>
+                            </div>
+                        </md-input-container >
+                        <md-input-container flex-xs="100" flex-sm="100" flex="50">
+                            <label>Valor</label>
+                            <input required type="number" ng-model="TratamientosForm.tratamiento.Valor" autocomplete="off">
+                        </md-input-container>
+                    </form>
+            </div>
+        </div>
+</md-content>
+

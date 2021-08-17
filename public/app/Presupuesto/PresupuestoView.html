@@ -1,0 +1,95 @@
+<div menu></div>
+<md-toolbar>
+    <div class="md-toolbar-tools color18">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="PresupuestoCtrl.menu.active = !PresupuestoCtrl.menu.active">
+            <md-tooltip md-direction="left">
+                Menu
+            </md-tooltip>
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <h2 class="md-title">Presupuesto {{PresupuestoCtrl.paciente.PrimerNombre|| PresupuestoCtrl.paciente.SegundoNombre || PresupuestoCtrl.paciente.PrimerApellido || PresupuestoCtrl.paciente.SegundoApellido ?'-':''}} {{PresupuestoCtrl.paciente.PrimerNombre}} {{PresupuestoCtrl.paciente.SegundoNombre}} {{PresupuestoCtrl.paciente.PrimerApellido}} {{PresupuestoCtrl.paciente.SegundoApellido}}</h2>
+        <div flex></div>
+        <md-button class="md-raised" ng-click="PresupuestoCtrl.openNewTab()">
+            Nuevo Paciente
+        </md-button>
+    </div>
+</md-toolbar>
+<div layout="row"  ng-cloak class="md-inline-form" layout-align="center center">
+    <md-content layout="column" layout-margin md-whiteframe="5" flex="100" md-colors="{background: 'grey-A100'}" >
+        <md-table-container >
+            <table md-table md-table md-row-select multiple ng-model="PresupuestoCtrl.selected">
+                <thead md-head>
+                    <tr md-row>
+                        <th md-column>Fecha creación</th>
+                        <th md-column>Tratamiento</th>
+                        <th md-column>Descripción</th>
+                        <th md-column>Dientes</th>
+                        <th md-column>Valor</th>
+                        <th md-column>Descuento</th>
+                        <th md-column md-numeric>
+                <md-button class="md-icon-button" aria-label="Editar">
+                    <i class="material-icons">settings</i>
+                </md-button>
+                </th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in PresupuestoCtrl.presupuesto| orderBy: item.FechaCreacion | limitTo: limit: (PresupuestoCtrl.page - 1) * PresupuestoCtrl.limit">
+                        <td md-cell>{{item.FechaCreacion| date:'MM/dd/yyyy h:mma'}}</td>
+                        <td md-cell>{{item.IdTratamiento.Nombre}}</td>
+                        <td md-cell>{{item.Descripcion}}</td>
+                        <td md-cell>
+                            <span ng-repeat="(diente, value) in item.Dientes" ng-if="value"> {{PresupuestoCtrl.contarZonas(value)}} zonas del {{diente}}<span ng-if="!$last">,</span></span>
+                        </td>
+                        <td md-cell>{{item.Valor}}</td>
+                        <td md-cell>{{item.Descuento}}</td>
+                        <td md-cell md-numeric>
+                <md-button class="md-icon-button" aria-label="Editar" ng-click="PresupuestoCtrl.delete(item._id)">
+                    <md-tooltip md-direction="left">
+                        Eliminar {{item.IdTratamiento.Nombre}}
+                    </md-tooltip>
+                    <md-icon class="material-icons">delete</md-icon>
+                </md-button>
+                </td>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="PresupuestoCtrl.limit" md-page="PresupuestoCtrl.page" md-total="{{PresupuestoCtrl.presupuesto.length}}"></md-table-pagination>
+    </md-content>
+</div>
+<div layout="row" layout-margin layout-padding>
+    <div class="box color1" style="height: 100px; " flex="25"><div class="box__text">Valor total del tratamiento: {{PresupuestoCtrl.getValorTotal()}}</div></div>
+    <div class="box color1" style="height: 100px; " flex="25"><div class="box__text">Abonos realizados: {{PresupuestoCtrl.getTotalPagos()}}</div></div>
+    <div class="box color1" style="height: 100px; " flex="25"><div class="box__text">Restante: {{PresupuestoCtrl.getValorTotal() - PresupuestoCtrl.getTotalPagos()}}</div></div>
+
+
+</div>
+<style>
+    .box{
+        float: left;
+        position: relative;
+        width: 260px;
+        height: 150px;
+    }
+    .box__text{
+        position: absolute;
+        display: inline-block;
+        bottom: 0px;
+        right: 0px;
+        margin: 10px;
+
+        font-size: 24px;
+        text-align: right;
+        color: #eee;
+    }
+</style>
+<div class="overlay ng-hide" layout="row" layout-align="center center" ng-show="PresupuestoCtrl.busy" style="
+     width: 100%;
+     height: 100%;
+     top: 0;
+     left: 0;
+     position: fixed;
+     z-index: 10000;
+     background-color: rgba(255,255,255, 0.8);">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>

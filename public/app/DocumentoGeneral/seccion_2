@@ -1,0 +1,78 @@
+<div flex="100">Oclusion</div>
+            <md-input-container flex="25">
+                <label>Apiñamiento</label>
+                <md-select ng-model="RegistroAtencionCtrl.registroAtencion.Apinamiento" ng-init="RegistroAtencionCtrl.apinamientoList = [{value: 0, label: 'No'}, {value: 1, label: 'Si'}]">
+                    <md-option ng-repeat="item in RegistroAtencionCtrl.apinamientoList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Retrognatismo</label>
+                <md-select ng-model="RegistroAtencionCtrl.registroAtencion.Retrognatismo" ng-init="RegistroAtencionCtrl.retrognatismoList = [{value: 0, label: 'No'}, {value: 1, label: 'Si'}]">
+                    <md-option ng-repeat="item in RegistroAtencionCtrl.retrognatismoList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Prognatismo</label>
+                <md-select ng-model="RegistroAtencionCtrl.registroAtencion.Prognatismo" ng-init="RegistroAtencionCtrl.prognatismoList = [{value: 0, label: 'No'}, {value: 1, label: 'Si'}]">
+                    <md-option ng-repeat="item in RegistroAtencionCtrl.prognatismoList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Mordida Abierta</label>
+                <md-select ng-model="RegistroAtencionCtrl.registroAtencion.MordidaAbierta" ng-init="RegistroAtencionCtrl.mordidaAbiertaList = [{value: 0, label: 'No'}, {value: 1, label: 'Si'}]">
+                    <md-option ng-repeat="item in RegistroAtencionCtrl.mordidaAbiertaList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Mordida Cerrada</label>
+                <md-select ng-model="RegistroAtencionCtrl.registroAtencion.MordidaCerrada" ng-init="RegistroAtencionCtrl.mordidaCerradaList = [{value: 0, label: 'No'}, {value: 1, label: 'Si'}]">
+                    <md-option ng-repeat="item in RegistroAtencionCtrl.mordidaCerradaList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Mordida Cruzada</label>
+                <md-select ng-model="RegistroAtencionCtrl.registroAtencion.MordidaCruzada" ng-init="RegistroAtencionCtrl.mordidaCruzadaList = [{value: 0, label: 'No'}, {value: 1, label: 'Si'}]">
+                    <md-option ng-repeat="item in RegistroAtencionCtrl.mordidaCruzadaList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <div flex="100">Periodonto</div>
+            <md-input-container flex="25">
+                <label>Calculos</label>
+                <md-select ng-model="RegistroAtencionCtrl.registroAtencion.Calculos" ng-init="RegistroAtencionCtrl.calculosList = [{value: 0, label: 'No'}, {value: 1, label: 'Si'}]">
+                    <md-option ng-repeat="item in RegistroAtencionCtrl.calculosList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Movilidad</label>
+                <md-select ng-model="RegistroAtencionCtrl.registroAtencion.Movilidad" ng-init="RegistroAtencionCtrl.movilidadList = [{value: 0, label: 'No'}, {value: 1, label: 'Si'}]">
+                    <md-option ng-repeat="item in RegistroAtencionCtrl.movilidadList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Sangrado gingival</label>
+                <md-select ng-model="RegistroAtencionCtrl.registroAtencion.SangradoGingival" ng-init="RegistroAtencionCtrl.SangradoGingivalList = [{value: 0, label: 'No'}, {value: 1, label: 'Si'}]">
+                    <md-option ng-repeat="item in RegistroAtencionCtrl.SangradoGingivalList" ng-value="item.value">
+                        {{item.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>Observaciones</label>
+                <textarea ng-model="RegistroAtencionCtrl.registroAtencion.Observaciones"></textarea>
+            </md-input-container>

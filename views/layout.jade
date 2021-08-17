@@ -1,0 +1,68 @@
+doctype html
+html(ng-app="odiseo")
+  head
+    title= title
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+    link(rel='stylesheet', href='/scripts/angular-material/angular-material.min.css' type="text/css")
+    link(href="/scripts/angular-material-data-table/dist/md-data-table.css" rel="stylesheet")
+    link(href="/scripts/dhtmlx-scheduler/codebase/dhtmlxscheduler_flat.css" rel="stylesheet")
+    link(href="/stylesheets/style.css" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans:300")
+    link(href="/stylesheets/angular-material-icons.css" rel="stylesheet")
+
+    
+    script(src="/scripts/jquery/dist/jquery.min.js")
+    
+    script(src='/scripts/angular/angular.min.js')
+    script(src='/scripts/angular-animate/angular-animate.min.js')
+    script(src='/scripts/angular-aria/angular-aria.min.js')
+    script(src='/scripts/angular-messages/angular-messages.min.js')
+    script(src='/scripts/angular-route/angular-route.min.js')
+    script(src='/scripts/angular-resource/angular-resource.min.js')
+     <!-- Angular Material Library -->
+    script(src='/scripts/angular-material/angular-material.min.js')
+    script(src="/scripts/angular-material-data-table/dist/md-data-table.js")
+
+    script(src="/scripts/dhtmlx-scheduler/codebase/sources/dhtmlxscheduler.js")
+    script(src="/scripts/dhtmlx-scheduler/codebase/locale/locale_es.js" charset="utf-8")
+    script(src="/scripts/dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_agenda_view.js")
+    
+    script(src="/scripts/angular-elastic/elastic.js")
+
+  body(ng-cloak="")
+    block content
+    script(src='/app/app.js')
+    script(src='/app/routes.js')
+    script(src='/app/SpeechRecognition/SpeechRecognitionAPI.js')
+    script(src='/app/RIPS/RIPSService.js')
+    script(src='/app/Pacientes/PacienteController.js')
+    script(src='/app/Pacientes/PacientesService.js')
+    script(src='/app/DocumentoGeneral/DocumentoGeneralController.js')
+    script(src='/app/DocumentoGeneral/DocumentoGeneralService.js')
+    script(src='/app/Odontograma/OdontogramaDirective.js')
+    script(src='/app/Odontograma/OdontogramaController.js')
+    script(src='/app/Odontograma/OdontogramaService.js')
+    script(src='/app/Evolucion/EvolucionController.js')
+    script(src='/app/Evolucion/EvolucionService.js')
+    script(src='/app/EquipoSalud/EquipoSaludService.js')
+    script(src='/app/EquipoSalud/EquipoSaludController.js')
+    script(src='/app/EquipoSalud/EquipoSaludFormController.js')
+    script(src='/app/Tratamientos/TratamientosService.js')
+    script(src='/app/Tratamientos/TratamientosController.js')
+    script(src='/app/Tratamientos/TratamientosFormController.js')
+    script(src='/app/Presupuesto/PresupuestoController.js')
+    script(src='/app/Presupuesto/PresupuestoFormController.js')
+    script(src='/app/Presupuesto/PresupuestoService.js')
+    script(src='/app/Pagos/PagosController.js')
+    script(src='/app/Pagos/PagosFormController.js')
+    script(src='/app/Pagos/PagosService.js')
+    script(src='/app/Agenda/AgendaController.js')
+    script(src='/app/Menu/MenuService.js')
+    script(src='/app/Menu/MenuDirective.js')
+    script(src='/app/CommonService.js')
+    
+    
+    
+    
+
